@@ -16,16 +16,21 @@ cursor.execute("""
 
 
 def criar_conta(nome_usuario, senha_usuario):
-    cursor.execute("""
-                   INSERT INTO Contas_bancarias (nome, senha, saldo) VALUES (?, ?, ?0 ,(nome_usuario, senha_usuario) """)
+    cursor.execute("INSERT INTO Contas_bancarias (nome, senha, saldo) VALUES (?, ?, 0)" ,(nome_usuario, senha_usuario) )
     banco.commit()
-    banco.close()
     print(f'Bem vindo {nome_usuario}! Sua conta foi criada com sucesso')
 
+def acessar_conta(nome_usuario, senha_usuario):
+    try:
+        cursor.execute("SELECT * FROM Contas_bancarias WHERE nome = ? AND senha = ?" , (nome_usuario, senha_usuario))
+        resultado = cursor.fetchone()
+        return resultado
+    except sqlite3.Error as e:
+        print(f'Erro ao acessar sua conta! {e}')
     
 def saldo():
     pass
-
+ 
 def transferencia():
     pass
 
