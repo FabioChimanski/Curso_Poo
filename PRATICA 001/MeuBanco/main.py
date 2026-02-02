@@ -17,7 +17,6 @@ while True:
             print('Bem vindo!')
             nome_usuario = input('Informe seu nome: ')
             senha_usuario = input('Informe sua senha usando apenas 4 digitos')
-<<<<<<< Updated upstream
             db.criar_conta(nome_usuario, senha_usuario)
         case "2":
             usuario = input('Usuario: ')
@@ -51,19 +50,6 @@ while True:
                             break
 
 
-=======
-            usuario = db.criar_conta(nome_usuario, senha_usuario)
-
-            if usuario:
-                print(f'Bem vindo {usuario}!')
-            else:
-                print('usuario não encontrado!')
-
-        case "2":
-            l = input("Usuario: ")
-            s = input("Senha: ")
-            usuario = db.acessar_conta(l, s)
->>>>>>> Stashed changes
 
         case "0":
             print('Até logo!')
