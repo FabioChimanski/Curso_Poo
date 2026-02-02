@@ -16,8 +16,14 @@ cursor.execute("""
 
 
 def criar_conta(nome_usuario, senha_usuario):
+<<<<<<< Updated upstream
     cursor.execute("INSERT INTO Contas_bancarias (nome, senha, saldo) VALUES (?, ?, 0)" ,(nome_usuario, senha_usuario) )
     banco.commit()
+=======
+    cursor.execute("INSERT INTO Contas_bancarias (nome, senha, saldo) VALUES (?, ?, 0)", (nome_usuario, senha_usuario))
+    banco.commit()
+    
+>>>>>>> Stashed changes
     print(f'Bem vindo {nome_usuario}! Sua conta foi criada com sucesso')
 
 def acessar_conta(nome_usuario, senha_usuario):
@@ -28,6 +34,11 @@ def acessar_conta(nome_usuario, senha_usuario):
     except sqlite3.Error as e:
         print(f'Erro ao acessar sua conta! {e}')
     
+def acessar_conta(nome_usuario, senha_usuario):
+    cursor.execute("SELECT * FROM Contas_Bancarias WHERE nome = ? AND senha = ?", (nome_usuario, senha_usuario))
+    resultado = cursor.fetchone()
+    return resultado
+
 def saldo():
     pass
  
