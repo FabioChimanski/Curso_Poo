@@ -11,7 +11,7 @@ class Produto:
 
         conteudo = f'{self.produto}\n -----------------------------------\n..........{self.valor}..........'
         
-        conteudo_centralizado = aling.center(conteudo)
+        conteudo_centralizado = (conteudo)
         caixa = Panel(
             conteudo_centralizado, 
             title="Produto", 
