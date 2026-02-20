@@ -17,15 +17,16 @@ class Gamer():
     def ficha(self):
 
         conteudo = Group(
-            f"Nome real: {self.nome}",
+            f"Nome real: [black on blue] {self.nome} ",
             "",
             "Jogos Favoritos",
-            *(f"{item}" for item in self.jogos_favoritos)
+            *(f"[blue] - {item}[/]" for item in self.jogos_favoritos)
         )
 
         caixa = Panel(
             conteudo, 
-            title = f"Jogador <{self.nick}>"
+            title = f"Jogador <{self.nick}>",
+            width=40
         )
 
         console.print(caixa)
