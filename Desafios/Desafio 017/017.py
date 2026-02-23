@@ -1,21 +1,24 @@
 from rich import print
 from rich.panel import Panel
-from rich.text import Text
 
 class Produto:
     def __init__(self, nome, valor):
         self.produto = nome
         self.valor = valor
 
+    def __str__(self):
+        return f"{self.produto} custa R${self.valor:,.2f}"
+
     def etiqueta(self):
 
-        conteudo = f'{self.produto}\n -----------------------------------\n..........{self.valor}..........'
-        
-        conteudo_centralizado = (conteudo)
+        conteudo = f"{self.produto.center(30, ' ')}"
+        conteudo += f"{'-' * 30}"
+        precof = f"{self.valor:,.2f}"
+        conteudo += f"{precof.center(30, ".")}"
         caixa = Panel(
-            conteudo_centralizado, 
+            conteudo,
             title="Produto", 
-            width=40)
+            width=34)
         
         print(caixa)
 
