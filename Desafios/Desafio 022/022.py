@@ -1,5 +1,6 @@
 from rich import print
 from rich.panel import Panel
+from rich.console import Console
 
 class Controle():
     
@@ -7,31 +8,48 @@ class Controle():
         self.power = False
         self.volume = volume
         self.canal = canal
-        self.on_off = "DESLIGADA"
+        self.on_off = "[red]DESLIGADA"
 
     def ligar(self):
 
-        if self.power == True:
-            self.power = False
-            self.on_off = f"[green]DESLIGADA"
-        elif self.power == False: 
-            self.on_off = f"[red]LIGADA"
-            self.power = True
+            self.power = not self.power
 
-        return self.power, self.on_off
+            if self.power:
+                self.on_off = f"[green]DESLIGADA"
+            else:
+                self.on_off = f"[red]LIGADA"
 
 
     def apresentacao(self):
 
-        conteudo = Panel(
-        self.on_off, 
-        title= f" [ TV ]",
-        width=30
-        )
+        console = Console()
+            
+        while True:
 
-        print(conteudo)
+            conteudo = Panel(
+            self.on_off,
+            title= f" [ TV ]",
+            width=30
+            )
+
+            print(conteudo)
         
-        comando = input(int(f"  < CH >   - VAL +  "))
+            comando = input(f"  < CH >   - VAL +  ")
+
+            match comando:
+                case "@":
+                    self.ligar()
+                    console.clear()
+                case "0":
+                    break
+                case ">":
+                    print(">")
+                case "<":
+                    print("<")
+                case "+":
+                    print("+")
+                case "-":
+                    print("-")
 
     def acoes():
         pass
