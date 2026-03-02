@@ -4,32 +4,35 @@ from rich.panel import Panel
 
 class Churrasco():
 
-    def __init__(self, titulo, quant):
+    consumo_padrao = 0.400
+    preco_kg = 82.40
+
+    def __init__(self, titulo, participantes):
         self.titulo = titulo
-        self.quantidade = quant
-        self.valor_kg_carne = 82.40
-        self.kg_total = 0
-        self.valor_pessoa = 0
-        self.total_pagar = 0
-        self.soma()
+        self.participantes = participantes
 
-
-    def soma(self, ):
-        self.kg_total = self.quantidade * 0.4
-        self.total_pagar = self.kg_total * self.valor_kg_carne
-        self.valor_pessoa = self.total_pagar / self.quantidade
-        return(self.valor_pessoa, self.kg_total)
-
+    def __str__(self):
+        return f"Esse é {self.titulo} com {self.participantes} pessoas participando"
+        
     def analisar(self):
-        conteudo = f'Analisando [green]{self.titulo}[/] com [blue]{self.quantidade} convidados[/]\nCada participante comerá 0.4 kg e cada kg custa R$ {self.valor_kg_carne}\nRecomendo comprar [blue]{self.kg_total:.3f} kg[/] de carne\nO custo total será de [green]R$ {self.total_pagar:.2f}[/]\nCada pessoa pagará R$ [red]{self.valor_pessoa:.2f}[/] para participar'
+        conteudo = f"Analizando o [green]{self.titulo}[/] com [blue]{self.participantes} convidados[/]"
+        conteudo += f"\nCada participante comerá {Churrasco.consumo_padrao}Kg e cada Kg de carne custa R${Churrasco.preco_kg:.2f}"
+        conteudo += f"\nRecomendo comprar [blue]{self.calcular_quantidade_carne():.3f}[/] Kg de carne"
+        conteudo += f"\nO custo total será de [green]R${self.calcular_custo_total():.2f}[/]"
+        conteudo += f"\nCada participanten deve pagar [yellow]R${self.calcular_custo_individual():.2f}[/]"
 
-        caixa = Panel(
-            conteudo,
-            title = self.titulo,
-            width=65
-        )
 
-        print(caixa)
+        painel = Panel(conteudo, title=self.titulo)
+        print(painel)
 
-c1 = Churrasco("Churras dos Amigos", 100)
+    def calcular_quantidade_carne(self) -> float:
+        return Churrasco.consumo_padrao * self.participantes
+
+    def calcular_custo_total(self) -> float:
+        return self.calcular_quantidade_carne() * self.preco_kg
+
+    def calcular_custo_individual(self) -> float:
+        return self.calcular_custo_total() / self.participantes
+
+c1 = Churrasco("Churras dos amigos", 15)
 c1.analisar()
