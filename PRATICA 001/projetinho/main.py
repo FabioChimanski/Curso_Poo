@@ -18,6 +18,7 @@ def main_menu():
 
             with open("tasks.txt", "a") as arquivo:
                 arquivo.write(task + "\n")
+            
         elif choice == '2':
             # Sua lógica para listar aqui
             print('List tasks')
