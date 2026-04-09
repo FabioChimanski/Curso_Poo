@@ -15,10 +15,9 @@ class Gamer():
         self.jogos_favoritos.append(jogos)
     
     def ficha(self):
-
+        self.jogos_favoritos = sorted(self.jogos_favoritos, key=str.lower)
         conteudo = Group(
             f"Nome real: [black on blue] {self.nome} ",
-            "",
             "Jogos Favoritos",
             *(f"[blue] - {item}[/]" for item in self.jogos_favoritos)
         )

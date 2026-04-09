@@ -2,45 +2,47 @@ from rich import print
 from rich.panel import Panel
 from rich.console import Console
 
-class Controle():
-    
-    def __init__(self, volume, canal):
-        self.power = False
-        self.volume = volume
-        self.canal = canal
-        self.on_off = "[red]DESLIGADA"
+class ControleRemoto:
+            canal_min = 1
+            canal_max = 7
+            volume_min = 1
+            volume_max = 5
 
-    def ligar(self):
+            def __init__(self, canal = 1, volume = 5):
+                 self.canal_atual:int = canal
+                 self.volume_atual:int = volume
+                 self.ligado:bool = False
 
-        self.power = not self.power
+            def liga_desliga(self):
+                  self.ligado = not self.ligado
 
-        if self.power:
-            self.on_off = "[green]LIGADA"
-        else:
-            self.on_off = "[red]DESLIGADA"
-
-    def apresentacao(self):
-        while True:
-            if self.power:
-                conteudo = Panel(
-                    self.on_off,
-                    title=" [ TV ]",
-                    width=30
-                )
-                print(conteudo)
-            else:
-                conteudo = Panel(
-                    f"{self.on_off}\n",
-                    "CANAL  :  1  2  3  4  5 ",
-                    "VOLUME :  ",
-                    title=" [ TV ]",
-                    width=30
-                )
-                print(conteudo)
+            def mostrar_tv(self):
+                conteudo = ""
+                if not self.ligado:
+                    conteudo = ('[red]A tv está desligada')
+                else:
+                    conteudo = "CANAL = "
+                    for canal in range(ControleRemoto.canal_min, ControleRemoto.canal_max +1):
+                        if canal == self.canal_atual:
+                            conteudo += f'[yellow on yellow] {canal} [/]'
+                        else:
+                            conteudo += f'  {canal}'
+                    
+                    conteudo += "\nVOLUME = "
+                    for volume in range(ControleRemoto.volume_min, ControleRemoto.volume_max+1):
+                        if volume <= self.volume_atual:
+                            conteudo += "[black on cyan]    [/]"
+                        else:
+                            conteudo += "[white on white]    [/]"
+                conteudo += "\nCANAL < >  VOL + - "
                 
-            comando = input(f"  < CH >   - VAL +   ")
 
-            match comando:
+                
+                tv = Panel(conteudo, title="[ TV ]", width=40)
+                print(tv)
+
+
+'''            match comando:
                 case "@":
                     self.ligar()
                 case "0":
@@ -56,6 +58,8 @@ class Controle():
 
     def canal(self):
         pass
+'''
 
-c1 = Controle(1, 1)
-c1.apresentacao()
+c = ControleRemoto(7,1)
+c.liga_desliga()
+c.mostrar_tv()
